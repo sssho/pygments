@@ -162,7 +162,6 @@ def test_msdos_gt_only(lexer_msdos):
         (Token.Generic.Prompt, u'>'),
         (Token.Text, u' '),
         (Token.Text, u'py'),
-        (Token.Text, u''),
         (Token.Text, u'\n'),
         (Token.Generic.Output, u'hi\n'),
     ]

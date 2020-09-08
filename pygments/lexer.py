@@ -805,7 +805,8 @@ def do_insertions(insertions, tokens):
             except StopIteration:
                 insleft = False
                 break  # not strictly necessary
-        yield realpos, t, v[oldi:]
+        if oldi < len(v):
+            yield realpos, t, v[oldi:]
         realpos += len(v) - oldi
 
     # leftover tokens

@@ -23,5 +23,6 @@ def testAngularFragment(lexer_ng2):
         (Token.Punctuation, '*'),
         (Token.Name.Attribute, '39j5Sq'),
         (Token.Operator, '='),
+        (Token.Text, '\n')
     ]
     assert list(lexer_ng2.get_tokens(fragment)) == tokens
