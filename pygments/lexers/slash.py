@@ -6,7 +6,7 @@
     Lexer for the `Slash <https://github.com/arturadib/Slash-A>`_ programming
     language.
 
-    :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2020 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 
@@ -182,4 +182,4 @@ class SlashLexer(DelegatingLexer):
 
     def __init__(self, **options):
         from pygments.lexers.web import HtmlLexer
-        super(SlashLexer, self).__init__(HtmlLexer, SlashLanguageLexer, **options)
+        super().__init__(HtmlLexer, SlashLanguageLexer, **options)

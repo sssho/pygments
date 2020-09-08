@@ -5,7 +5,7 @@
 
     Formatter for LaTeX fancyvrb output.
 
-    :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2020 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 
@@ -451,8 +451,7 @@ class LatexEmbeddedLexer(Lexer):
         for i, t, v in self.lang.get_tokens_unprocessed(text):
             if t in Token.Comment or t in Token.String:
                 if buf:
-                    for x in self.get_tokens_aux(idx, buf):
-                        yield x
+                    yield from self.get_tokens_aux(idx, buf)
                     buf = ''
                 yield i, t, v
             else:
@@ -460,8 +459,7 @@ class LatexEmbeddedLexer(Lexer):
                     idx = i
                 buf += v
         if buf:
-            for x in self.get_tokens_aux(idx, buf):
-                yield x
+            yield from self.get_tokens_aux(idx, buf)
 
     def get_tokens_aux(self, index, text):
         while text:

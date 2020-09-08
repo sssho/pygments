@@ -5,7 +5,7 @@
 
     Lexers for Lispy languages.
 
-    :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2020 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 
@@ -382,7 +382,7 @@ class HyLexer(RegexLexer):
     # valid names for identifiers
     # well, names can only not consist fully of numbers
     # but this should be good enough for now
-    valid_name = r'(?!#)[\w!$%*+<=>?/.#-:]+'
+    valid_name = r'(?!#)[\w!$%*+<=>?/.#:-]+'
 
     def _multi_escape(entries):
         return words(entries, suffix=' ')
@@ -2277,9 +2277,7 @@ class ShenLexer(RegexLexer):
             if self._relevant(token):
                 if opening_paren and token == Keyword and value in self.DECLARATIONS:
                     declaration = value
-                    for index, token, value in \
-                            self._process_declaration(declaration, tokens):
-                        yield index, token, value
+                    yield from self._process_declaration(declaration, tokens)
                 opening_paren = value == '(' and token == Punctuation
 
     def _process_symbols(self, tokens):
@@ -2636,29 +2634,34 @@ class FennelLexer(RegexLexer):
 
     # these two lists are taken from fennel-mode.el:
     # https://gitlab.com/technomancy/fennel-mode
-    # this list is current as of Fennel version 0.1.0.
+    # this list is current as of Fennel version 0.6.0.
     special_forms = (
-        u'require-macros', u'eval-compiler',
-        u'do', u'values', u'if', u'when', u'each', u'for', u'fn', u'lambda',
-        u'λ', u'set', u'global', u'var', u'local', u'let', u'tset', u'doto',
-        u'set-forcibly!', u'defn', u'partial', u'while', u'or', u'and', u'true',
-        u'false', u'nil', u'.', u'+', u'..', u'^', u'-', u'*', u'%', u'/', u'>',
-        u'<', u'>=', u'<=', u'=', u'~=', u'#', u'...', u':', u'->', u'->>',
+        'require-macros', 'eval-compiler', 'doc', 'lua', 'hashfn',
+        'macro', 'macros', 'import-macros', 'pick-args', 'pick-values',
+        'macroexpand', 'macrodebug', 'do', 'values', 'if', 'when',
+        'each', 'for', 'fn', 'lambda', 'λ', 'partial', 'while',
+        'set', 'global', 'var', 'local', 'let', 'tset', 'set-forcibly!',
+        'doto', 'match', 'or', 'and', 'true', 'false', 'nil', 'not',
+        'not=', '.', '+', '..', '^', '-', '*', '%', '/', '>',
+        '<', '>=', '<=', '=', '...', ':', '->', '->>', '-?>',
+        '-?>>', 'rshift', 'lshift', 'bor', 'band', 'bnot', 'bxor',
+        'with-open', 'length'
     )
 
     # Might be nicer to use the list from _lua_builtins.py but it's unclear how?
     builtins = (
-        u'_G', u'_VERSION', u'arg', u'assert', u'bit32', u'collectgarbage',
-        u'coroutine', u'debug', u'dofile', u'error', u'getfenv',
-        u'getmetatable', u'io', u'ipairs', u'load', u'loadfile', u'loadstring',
-        u'math', u'next', u'os', u'package', u'pairs', u'pcall', u'print',
-        u'rawequal', u'rawget', u'rawlen', u'rawset', u'require', u'select',
-        u'setfenv', u'setmetatable', u'string', u'table', u'tonumber',
-        u'tostring', u'type', u'unpack', u'xpcall'
+        '_G', '_VERSION', 'arg', 'assert', 'bit32', 'collectgarbage',
+        'coroutine', 'debug', 'dofile', 'error', 'getfenv',
+        'getmetatable', 'io', 'ipairs', 'load', 'loadfile', 'loadstring',
+        'math', 'next', 'os', 'package', 'pairs', 'pcall', 'print',
+        'rawequal', 'rawget', 'rawlen', 'rawset', 'require', 'select',
+        'setfenv', 'setmetatable', 'string', 'table', 'tonumber',
+        'tostring', 'type', 'unpack', 'xpcall'
     )
 
-    # based on the scheme definition, but disallowing leading digits and commas
-    valid_name = r'[a-zA-Z_!$%&*+/:<=>?@^~|-][\w!$%&*+/:<=>?@^~|\.-]*'
+    # based on the scheme definition, but disallowing leading digits and
+    # commas, and @ is not allowed.
+    valid_name = r'[a-zA-Z_!$%&*+/:<=>?^~|-][\w!$%&*+/:<=>?^~|\.-]*'
 
     tokens = {
         'root': [
@@ -2669,8 +2672,7 @@ class FennelLexer(RegexLexer):
             (r'-?\d+\.\d+', Number.Float),
             (r'-?\d+', Number.Integer),
 
-            (r'"(\\\\|\\"|[^"])*"', String),
-            (r"'(\\\\|\\'|[^'])*'", String),
+            (r'"(\\\\|\\"|\\|[^"\\])*"', String),
 
             # these are technically strings, but it's worth visually
             # distinguishing them because their intent is different
@@ -2690,5 +2692,8 @@ class FennelLexer(RegexLexer):
             (r'(\(|\))', Punctuation),
             (r'(\[|\])', Punctuation),
             (r'(\{|\})', Punctuation),
+
+            # the # symbol is shorthand for a lambda function
+            (r'#', Punctuation),
         ]
     }

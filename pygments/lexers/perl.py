@@ -5,7 +5,7 @@
 
     Lexers for Perl, Raku and related languages.
 
-    :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2020 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 
@@ -714,5 +714,5 @@ class Perl6Lexer(ExtendedRegexLexer):
         return rating
 
     def __init__(self, **options):
-        super(Perl6Lexer, self).__init__(**options)
+        super().__init__(**options)
         self.encoding = options.get('encoding', 'utf-8')

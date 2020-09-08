@@ -5,7 +5,7 @@
 
     Lexers for Haskell and related languages.
 
-    :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2020 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 
@@ -559,8 +559,7 @@ class LiterateLexer(Lexer):
                     latex += line
             insertions.append((len(code),
                                list(lxlexer.get_tokens_unprocessed(latex))))
-        for item in do_insertions(insertions, self.baselexer.get_tokens_unprocessed(code)):
-            yield item
+        yield from do_insertions(insertions, self.baselexer.get_tokens_unprocessed(code))
 
 
 class LiterateHaskellLexer(LiterateLexer):

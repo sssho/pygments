@@ -3,7 +3,7 @@
     Basic Shell Tests
     ~~~~~~~~~~~~~~~~~
 
-    :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2020 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 
@@ -174,6 +174,24 @@ def test_powershell_session(lexer_powershell_session):
     tokens = [
         (Token.Name.Builtin, u''),
         (Token.Generic.Prompt, u'PS C:\\> '),
+        (Token.Name.Builtin, u'Get-ChildItem'),
+        (Token.Text, u'\n')
+    ]
+    assert list(lexer_powershell_session.get_tokens(fragment)) == tokens
+
+    fragment = u'PS> Get-ChildItem\n'
+    tokens = [
+        (Token.Name.Builtin, u''),
+        (Token.Generic.Prompt, u'PS> '),
+        (Token.Name.Builtin, u'Get-ChildItem'),
+        (Token.Text, u'\n')
+    ]
+    assert list(lexer_powershell_session.get_tokens(fragment)) == tokens
+
+    fragment = u'PS > Get-ChildItem\n'
+    tokens = [
+        (Token.Name.Builtin, u''),
+        (Token.Generic.Prompt, u'PS > '),
         (Token.Name.Builtin, u'Get-ChildItem'),
         (Token.Text, u'\n')
     ]

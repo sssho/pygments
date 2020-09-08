@@ -5,7 +5,7 @@
 
     Lexers for the Julia language.
 
-    :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2020 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 
@@ -145,7 +145,7 @@ class JuliaLexer(RegexLexer):
 
             # operators
             # see: https://github.com/JuliaLang/julia/blob/master/src/julia-parser.scm
-            (words([
+            (words((
                 # prec-assignment
                 u'=', u':=', u'+=', u'-=', u'*=', u'/=', u'//=', u'.//=', u'.*=', u'./=',
                 u'\\=', u'.\\=', u'^=', u'.^=', u'÷=', u'.÷=', u'%=', u'.%=', u'|=', u'&=',
@@ -169,7 +169,7 @@ class JuliaLexer(RegexLexer):
                 # prec-colon
                 u':',
                 # prec-plus
-                u'+', u'-', u'.+', u'.-', u'|', u'∪', u'$',
+                u'.+', u'.-', u'|', u'∪', u'$',
                 # prec-bitshift
                 u'<<', u'>>', u'>>>', u'.<<', u'.>>', u'.>>>',
                 # prec-times
@@ -184,7 +184,7 @@ class JuliaLexer(RegexLexer):
                 u'.',
                 # unary op
                 u'+', u'-', u'!', u'√', u'∛', u'∜'
-            ]), Operator),
+            )), Operator),
 
             # chars
             (r"'(\\.|\\[0-7]{1,3}|\\x[a-fA-F0-9]{1,3}|\\u[a-fA-F0-9]{1,4}|"
@@ -316,9 +316,8 @@ class JuliaConsoleLexer(Lexer):
                 curcode += line[6:]
             else:
                 if curcode:
-                    for item in do_insertions(
-                            insertions, jllexer.get_tokens_unprocessed(curcode)):
-                        yield item
+                    yield from do_insertions(
+                        insertions, jllexer.get_tokens_unprocessed(curcode))
                     curcode = ''
                     insertions = []
                 if line.startswith('ERROR: ') or error:
@@ -330,6 +329,5 @@ class JuliaConsoleLexer(Lexer):
             start += len(line)
 
         if curcode:
-            for item in do_insertions(
-                    insertions, jllexer.get_tokens_unprocessed(curcode)):
-                yield item
+            yield from do_insertions(
+                insertions, jllexer.get_tokens_unprocessed(curcode))

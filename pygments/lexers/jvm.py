@@ -5,7 +5,7 @@
 
     Pygments lexers for JVM languages.
 
-    :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2020 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 
@@ -278,7 +278,7 @@ class ScalaLexer(RegexLexer):
              u'lazy|match|new|override|pr(?:ivate|otected)'
              u'|re(?:quires|turn)|s(?:ealed|uper)|'
              u't(?:h(?:is|row)|ry)|va[lr]|w(?:hile|ith)|yield)\\b|'
-             u'(<[%:-]|=>|>:|[#=@_\u21D2\u2190])(\\b|(?=\\s)|$)', Keyword),
+             u'(<[%:-]|=>|>:|[#=@_\u21D2\u2190])\\b', Keyword),
             (u':(?!%s)' % op, Keyword, 'type'),
             (u'%s%s\\b' % (upper, idrest), Name.Class),
             (r'(true|false|null)\b', Keyword.Constant),
@@ -331,7 +331,7 @@ class ScalaLexer(RegexLexer):
             (r'\s+', Text),
             include('comments'),
             (r',+', Punctuation),
-            (u'<[%:]|=>|>:|[#_\u21D2]|\bforSome\b|\btype\b', Keyword),
+            (r'<[%:]|=>|>:|[#_\u21D2]|\bforSome\b|\btype\b', Keyword),
             (r'([\])}])', Operator, '#pop'),
             (r'[(\[{]', Operator, '#push'),
             (u'\\.|%s|%s|`[^`]+`' % (idrest, op), Keyword.Type)
@@ -467,8 +467,7 @@ class GosuTemplateLexer(Lexer):
     def get_tokens_unprocessed(self, text):
         lexer = GosuLexer()
         stack = ['templateText']
-        for item in lexer.get_tokens_unprocessed(text, stack):
-            yield item
+        yield from lexer.get_tokens_unprocessed(text, stack)
 
 
 class GroovyLexer(RegexLexer):

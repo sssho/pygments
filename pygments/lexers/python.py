@@ -5,7 +5,7 @@
 
     Lexers for Python and related languages.
 
-    :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
+    :copyright: Copyright 2006-2020 by the Pygments team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 """
 
@@ -172,19 +172,19 @@ class PythonLexer(RegexLexer):
             # without format specifier
             (r'(=\s*)?'         # debug (https://bugs.python.org/issue36817)
              r'(\![sraf])?'     # conversion
-             r'}', String.Interpol, '#pop'),
+             r'\}', String.Interpol, '#pop'),
             # with format specifier
             # we'll catch the remaining '}' in the outer scope
             (r'(=\s*)?'         # debug (https://bugs.python.org/issue36817)
              r'(\![sraf])?'     # conversion
              r':', String.Interpol, '#pop'),
-            (r'[^\S]+', Text),  # allow new lines
+            (r'\s+', Text),  # allow new lines
             include('expr'),
         ],
         'expr-inside-fstring-inner': [
             (r'[{([]', Punctuation, 'expr-inside-fstring-inner'),
             (r'[])}]', Punctuation, '#pop'),
-            (r'[^\S]+', Text),  # allow new lines
+            (r'\s+', Text),  # allow new lines
             include('expr'),
         ],
         'expr-keywords': [
@@ -317,8 +317,8 @@ class PythonLexer(RegexLexer):
             default('#pop'),
         ],
         'fstringescape': [
-            ('{{', String.Escape),
-            ('}}', String.Escape),
+            (r'\{\{', String.Escape),
+            (r'\}\}', String.Escape),
             include('stringescape'),
         ],
         'stringescape': [
@@ -660,9 +660,8 @@ class PythonConsoleLexer(Lexer):
                 curcode += line[3:]
             else:
                 if curcode:
-                    for item in do_insertions(
-                            insertions, pylexer.get_tokens_unprocessed(curcode)):
-                        yield item
+                    yield from do_insertions(
+                        insertions, pylexer.get_tokens_unprocessed(curcode))
                     curcode = ''
                     insertions = []
                 if (line.startswith(u'Traceback (most recent call last):') or
@@ -682,9 +681,8 @@ class PythonConsoleLexer(Lexer):
                 else:
                     yield match.start(), Generic.Output, line
         if curcode:
-            for item in do_insertions(insertions,
-                                      pylexer.get_tokens_unprocessed(curcode)):
-                yield item
+            yield from do_insertions(insertions,
+                                     pylexer.get_tokens_unprocessed(curcode))
         if curtb:
             for i, t, v in tblexer.get_tokens_unprocessed(curtb):
                 yield tbindex+i, t, v
@@ -832,7 +830,7 @@ class CythonLexer(RegexLexer):
         ],
         'keywords': [
             (words((
-                'assert', 'break', 'by', 'continue', 'ctypedef', 'del', 'elif',
+                'assert', 'async', 'await', 'break', 'by', 'continue', 'ctypedef', 'del', 'elif',
                 'else', 'except', 'except?', 'exec', 'finally', 'for', 'fused', 'gil',
                 'global', 'if', 'include', 'lambda', 'nogil', 'pass', 'print',
                 'raise', 'return', 'try', 'while', 'yield', 'as', 'with'), suffix=r'\b'),
