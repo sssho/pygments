@@ -159,6 +159,8 @@ class SystemVerilogLexer(RegexLexer):
     #: optional Comment or Whitespace
     _ws = r'(?:\s|//.*?\n|/[*].*?[*]/)+'
 
+    lifetime = 'static|automatic'
+
     tokens = {
         'root': [
             (r'^\s*`define', Comment.Preproc, 'macro'),
@@ -208,7 +210,7 @@ class SystemVerilogLexer(RegexLexer):
                 'endchecker', 'endclocking', 'endconfig', 'endfunction',
                 'endgenerate', 'endgroup', 'endinterface', 'endmodule', 'endpackage',
                 'endprimitive', 'endprogram', 'endproperty', 'endsequence',
-                'endspecify', 'endtable', 'endtask', 'enum', 'eventually',
+                'endspecify', 'endtable', 'enum', 'eventually',
                 'expect', 'export', 'extern', 'final', 'first_match',
                 'for', 'force', 'foreach', 'forever', 'fork', 'forkjoin', 'function',
                 'generate', 'genvar', 'global', 'highz0', 'highz1', 'if', 'iff',
@@ -230,7 +232,7 @@ class SystemVerilogLexer(RegexLexer):
                 'showcancelled', 'small', 'soft', 'solve',
                 'specify', 'specparam', 'static', 'strong', 'strong0',
                 'strong1', 'struct', 'super', 'sync_accept_on',
-                'sync_reject_on', 'table', 'tagged', 'task', 'this', 'throughout',
+                'sync_reject_on', 'table', 'tagged', 'this', 'throughout',
                 'timeprecision', 'timeunit', 'tran', 'tranif0', 'tranif1',
                 'typedef', 'union', 'unique', 'unique0', 'until',
                 'until_with', 'untyped', 'use', 'vectored',
@@ -239,6 +241,13 @@ class SystemVerilogLexer(RegexLexer):
                 'xnor', 'xor'),
                 suffix=r'\b'),
              Keyword),
+
+            (r'(task)(\s+)({})(\s+)([a-zA-Z_]\w*)'.format(lifetime),
+             bygroups(Keyword.Declaration, Text, Keyword, Text, Name.Function)),
+            (r'(task)(\s+)([a-zA-Z_]\w*)',
+             bygroups(Keyword.Declaration, Text, Name.Function)),
+            (r'(endtask\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+             bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Function)),
 
             (r'(class)(\s+)([a-zA-Z_]\w*)',
              bygroups(Keyword.Declaration, Text, Name.Class)),

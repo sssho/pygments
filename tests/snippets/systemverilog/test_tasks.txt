@@ -1,0 +1,53 @@
+# tasks
+
+---input---
+task t;
+
+task automatic t;
+
+task static t;
+
+endtask
+
+endtask: t;
+
+---tokens---
+'task'        Keyword.Declaration
+' '           Text
+'t'           Name.Function
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'task'        Keyword.Declaration
+' '           Text
+'automatic'   Keyword
+' '           Text
+'t'           Name.Function
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'task'        Keyword.Declaration
+' '           Text
+'static'      Keyword
+' '           Text
+'t'           Name.Function
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'endtask'     Keyword.Declaration
+'\n'          Text
+
+'\n'          Text
+
+'endtask'     Keyword.Declaration
+':'           Punctuation
+' '           Text
+'t'           Name.Function
+';'           Punctuation
+'\n'          Text
