@@ -13,6 +13,10 @@ endclass : Fiz
 class Free #(parameter type T = byte) extends Beer #(T);
 endclass : Free
 
+virtual class Foo;
+
+interface class Foo;
+
 ---tokens---
 'class'       Keyword.Declaration
 ' '           Text
@@ -92,4 +96,24 @@ endclass : Free
 ':'           Punctuation
 ' '           Text
 'Free'        Name.Class
+'\n'          Text
+
+'\n'          Text
+
+'virtual'     Keyword
+' '           Text
+'class'       Keyword.Declaration
+' '           Text
+'Foo'         Name.Class
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'interface'   Keyword
+' '           Text
+'class'       Keyword.Declaration
+' '           Text
+'Foo'         Name.Class
+';'           Punctuation
 '\n'          Text
