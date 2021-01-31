@@ -307,7 +307,7 @@ class SystemVerilogLexer(RegexLexer):
         'root': [
             (r'^\s*`define', Comment.Preproc, 'macro'),
             (r'^(\s*)(import)(\s+)', bygroups(Text, Keyword.Namespace, Text), 'import'),
-            (r'^(\s*)(function)(\s+)', bygroups(Text, Keyword.Declaration, Text), 'function'),
+            (r'(function)(\s+)', bygroups(Keyword.Declaration, Text), 'function'),
             (r'(endfunction\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
              bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Function)),
 

@@ -1,0 +1,179 @@
+# Methods(function)
+
+---input---
+static function void Foo();
+
+protected function void Foo();
+
+local function void Foo();
+
+virtual function void Foo();
+
+pure virtual function void Foo();
+
+pure virtual static function void Foo();
+
+extern function void Foo();
+
+extern virtual function void Foo();
+
+extern pure virtual function void Foo();
+
+extern pure virtual static function void Foo();
+
+---tokens---
+'static'      Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'protected'   Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'local'       Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'virtual'     Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'pure'        Keyword
+' '           Text
+'virtual'     Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'pure'        Keyword
+' '           Text
+'virtual'     Keyword
+' '           Text
+'static'      Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'extern'      Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'extern'      Keyword
+' '           Text
+'virtual'     Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'extern'      Keyword
+' '           Text
+'pure'        Keyword
+' '           Text
+'virtual'     Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'extern'      Keyword
+' '           Text
+'pure'        Keyword
+' '           Text
+'virtual'     Keyword
+' '           Text
+'static'      Keyword
+' '           Text
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
