@@ -1,0 +1,28 @@
+# Packages
+
+---input---
+package Foo;
+
+endpackage
+
+endpackage: Foo
+
+---tokens---
+'package'     Keyword.Namespace
+' '           Text
+'Foo'         Name.Namespace
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'endpackage'  Keyword.Namespace
+'\n'          Text
+
+'\n'          Text
+
+'endpackage'  Keyword.Namespace
+':'           Punctuation
+' '           Text
+'Foo'         Name.Namespace
+'\n'          Text
