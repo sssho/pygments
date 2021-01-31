@@ -207,7 +207,7 @@ class SystemVerilogLexer(RegexLexer):
                 'coverpoint', 'cross', 'deassign', 'default', 'defparam', 'design',
                 'disable', 'do', 'edge', 'else', 'end', 'endcase',
                 'endchecker', 'endclocking', 'endconfig', 'endfunction',
-                'endgenerate', 'endgroup', 'endinterface', 'endmodule',
+                'endgenerate', 'endgroup', 'endinterface',
                 'endprimitive', 'endprogram', 'endproperty', 'endsequence',
                 'endspecify', 'endtable', 'enum', 'eventually',
                 'expect', 'export', 'extern', 'final', 'first_match',
@@ -218,7 +218,7 @@ class SystemVerilogLexer(RegexLexer):
                 'instance', 'interconnect', 'interface', 'intersect', 'join',
                 'join_any', 'join_none', 'large', 'let', 'liblist', 'library',
                 'local', 'localparam', 'macromodule', 'matches',
-                'medium', 'modport', 'module', 'nand', 'negedge', 'nettype', 'new', 'nexttime',
+                'medium', 'modport', 'nand', 'negedge', 'nettype', 'new', 'nexttime',
                 'nmos', 'nor', 'noshowcancelled', 'not', 'notif0', 'notif1', 'null',
                 'or', 'output', 'packed', 'parameter', 'pmos', 'posedge',
                 'primitive', 'priority', 'program', 'property', 'protected', 'pull0',
@@ -246,6 +246,12 @@ class SystemVerilogLexer(RegexLexer):
              bygroups(Text, Keyword.Namespace, Text, Name.Namespace)),
             (r'(endpackage\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
              bygroups(Keyword.Namespace, Text, Punctuation, Text, Name.Namespace)),
+
+            # module declaration
+            (r'^(\s*)(module)(\s+)([a-zA-Z_]\w*)',
+             bygroups(Text, Keyword.Declaration, Text, Name.Class)),
+            (r'(endmodule\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+             bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Class)),
 
             (r'(task)(\s+)({})(\s+)([a-zA-Z_]\w*)'.format(lifetime),
              bygroups(Keyword.Declaration, Text, Keyword, Text, Name.Function)),

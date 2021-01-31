@@ -23,9 +23,9 @@ endmodule : Adder
 ---tokens---
 '// Adder flops the sum of its inputs\n' Comment.Single
 
-'module'      Keyword
+'module'      Keyword.Declaration
 ' '           Text
-'Adder'       Name
+'Adder'       Name.Class
 ' '           Text
 '#'           Punctuation
 '('           Punctuation
@@ -173,9 +173,9 @@ endmodule : Adder
 'end'         Keyword
 '\n'          Text
 
-'endmodule'   Keyword
+'endmodule'   Keyword.Declaration
 ' '           Text
-':'           Operator
+':'           Punctuation
 ' '           Text
-'Adder'       Name
+'Adder'       Name.Class
 '\n'          Text
