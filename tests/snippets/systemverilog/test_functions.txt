@@ -1,0 +1,169 @@
+# Functions
+
+---input---
+function Foo();
+
+function void Foo();
+
+function int unsigned Foo();
+
+function logic [1:0] signed Foo();
+
+function static Foo();
+
+function automatic Foo();
+
+function static int Foo();
+
+function static int unsigned Foo();
+
+function static logic [1:0] signed Foo();
+
+endfunction
+
+endfunction : Foo
+
+---tokens---
+'function'    Keyword.Declaration
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'function'    Keyword.Declaration
+' '           Text
+'void'        Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'function'    Keyword.Declaration
+' '           Text
+'int'         Keyword.Type
+' '           Text
+'unsigned'    Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'function'    Keyword.Declaration
+' '           Text
+'logic'       Keyword.Type
+' '           Text
+'['           Punctuation
+'1'           Literal.Number.Integer
+':'           Punctuation
+'0'           Literal.Number.Integer
+']'           Punctuation
+' '           Text
+'signed'      Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'function'    Keyword.Declaration
+' '           Text
+'static'      Keyword
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'function'    Keyword.Declaration
+' '           Text
+'automatic'   Keyword
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'function'    Keyword.Declaration
+' '           Text
+'static'      Keyword
+' '           Text
+'int'         Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'function'    Keyword.Declaration
+' '           Text
+'static'      Keyword
+' '           Text
+'int'         Keyword.Type
+' '           Text
+'unsigned'    Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'function'    Keyword.Declaration
+' '           Text
+'static'      Keyword
+' '           Text
+'logic'       Keyword.Type
+' '           Text
+'['           Punctuation
+'1'           Literal.Number.Integer
+':'           Punctuation
+'0'           Literal.Number.Integer
+']'           Punctuation
+' '           Text
+'signed'      Keyword.Type
+' '           Text
+'Foo'         Name.Function
+'('           Punctuation
+')'           Punctuation
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'endfunction' Keyword.Declaration
+'\n'          Text
+
+'\n'          Text
+
+'endfunction' Keyword.Declaration
+' '           Text
+':'           Punctuation
+' '           Text
+'Foo'         Name.Function
+'\n'          Text

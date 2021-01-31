@@ -170,12 +170,12 @@ class SystemVerilogLexer(RegexLexer):
         'constraint', 'context', 'continue', 'cover', 'covergroup',
         'coverpoint', 'cross', 'deassign', 'default', 'defparam', 'design',
         'disable', 'do', 'edge', 'else', 'end', 'endcase',
-        'endchecker', 'endclocking', 'endconfig', 'endfunction',
+        'endchecker', 'endclocking', 'endconfig',
         'endgenerate', 'endgroup', 'endinterface',
         'endprimitive', 'endprogram', 'endproperty', 'endsequence',
         'endspecify', 'endtable', 'enum', 'eventually',
         'expect', 'export', 'extern', 'final', 'first_match',
-        'for', 'force', 'foreach', 'forever', 'fork', 'forkjoin', 'function',
+        'for', 'force', 'foreach', 'forever', 'fork', 'forkjoin',
         'generate', 'genvar', 'global', 'highz0', 'highz1', 'if', 'iff',
         'ifnone', 'ignore_bins', 'illegal_bins', 'implies', 'implements', 'import',
         'incdir', 'include', 'initial', 'inout', 'input',
@@ -307,6 +307,9 @@ class SystemVerilogLexer(RegexLexer):
         'root': [
             (r'^\s*`define', Comment.Preproc, 'macro'),
             (r'^(\s*)(import)(\s+)', bygroups(Text, Keyword.Namespace, Text), 'import'),
+            (r'^(\s*)(function)(\s+)', bygroups(Text, Keyword.Declaration, Text), 'function'),
+            (r'(endfunction\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+             bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Function)),
 
             (r'\n', Text),
             (r'\s+', Text),
@@ -393,7 +396,16 @@ class SystemVerilogLexer(RegexLexer):
         ],
         'import': [
             (r'[\w:]+\*?', Name.Namespace, '#pop')
-        ]
+        ],
+        'function': [
+            (r'\s+', Text),
+            (r'(static\b|automatic\b)', Keyword),
+            (words(data_types, suffix=r'\b'), Keyword.Type),
+            (r'[\[\]:]', Punctuation),
+            (r'[0-9]+', Number.Integer),
+            (r'([a-zA-Z_]\w*)', Name.Function),
+            (r'\(', Punctuation, '#pop')
+        ],
     }
 
 
