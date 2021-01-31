@@ -1,0 +1,7 @@
+# Built in functions
+
+---input---
+$display
+---tokens---
+'$display'    Name.Builtin
+'\n'          Text

@@ -1,0 +1,20 @@
+# Queue
+
+---input---
+q[$]
+q[ $  ]
+
+---tokens---
+'q'           Name
+'['           Punctuation
+'$'           Punctuation
+']'           Punctuation
+'\n'          Text
+
+'q'           Name
+'['           Punctuation
+' '           Text
+'$'           Punctuation
+'  '          Text
+']'           Punctuation
+'\n'          Text
