@@ -162,13 +162,14 @@ class SystemVerilogLexer(RegexLexer):
     _ws = r'(?:\s|//.*?\n|/[*].*?[*]/)+'
 
     lifetime = 'static|automatic'
+    namepat = r'[a-zA-Z_]\w*'
 
     tokens = {
         'root': [
             (r'^\s*`define', Comment.Preproc, 'macro'),
             (r'^(\s*)(import)(\s+)', bygroups(Text, Keyword.Namespace, Text), 'import'),
             (r'(function)(\s+)', bygroups(Keyword.Declaration, Text), 'function'),
-            (r'(endfunction\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+            (rf'(endfunction\b)(?:(\s*)(:)(\s*)({namepat}))?',
              bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Function)),
 
             (r'\n', Text),
@@ -200,41 +201,42 @@ class SystemVerilogLexer(RegexLexer):
 
             (r'[()\[\],.;\']', Punctuation),
             (r'(\$)(\s*)(\])', bygroups(Punctuation, Text, Punctuation)),
-            (r'`[a-zA-Z_]\w*', Name.Constant),
+            (rf'`{namepat}', Name.Constant),
 
             (words(_systemverilog_builtins.KEYWORDS, suffix=r'\b'), Keyword),
 
             # package declaration
-            (r'^(\s*)(package)(\s+)([a-zA-Z_]\w*)',
+            (rf'^(\s*)(package)(\s+)({namepat})',
              bygroups(Text, Keyword.Namespace, Text, Name.Namespace)),
-            (r'(endpackage\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+            (rf'(endpackage\b)(?:(\s*)(:)(\s*)({namepat}))?',
              bygroups(Keyword.Namespace, Text, Punctuation, Text, Name.Namespace)),
 
             # interface declaration
-            (r'^(\s*)(interface)(\s+)(?!class )([a-zA-Z_]\w*)',
+            (rf'^(\s*)(interface)(\s+)(?!class )({namepat})',
              bygroups(Text, Keyword.Declaration, Text, Name.Class)),
-            (r'(endinterface\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+            (rf'(endinterface\b)(?:(\s*)(:)(\s*)({namepat}))?',
              bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Class)),
 
             # module declaration
-            (r'^(\s*)(module)(\s+)([a-zA-Z_]\w*)',
+            (rf'^(\s*)(module)(\s+)({namepat})',
              bygroups(Text, Keyword.Declaration, Text, Name.Class)),
-            (r'(endmodule\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+            (rf'(endmodule\b)(?:(\s*)(:)(\s*)({namepat}))?',
              bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Class)),
 
-            (r'(task)(\s+)({})(\s+)([a-zA-Z_]\w*)'.format(lifetime),
+            # task declaration
+            (rf'(task)(\s+)({lifetime})(\s+)({namepat})',
              bygroups(Keyword.Declaration, Text, Keyword, Text, Name.Function)),
-            (r'(task)(\s+)([a-zA-Z_]\w*)',
+            (rf'(task)(\s+)({namepat})',
              bygroups(Keyword.Declaration, Text, Name.Function)),
-            (r'(endtask\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+            (rf'(endtask\b)(?:(\s*)(:)(\s*)({namepat}))?',
              bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Function)),
 
             # class declaration
-            (r'(interface)?(\s*)(class)(\s+)([a-zA-Z_]\w*)',
+            (rf'(interface)?(\s*)(class)(\s+)({namepat})',
              bygroups(Keyword, Text, Keyword.Declaration, Text, Name.Class)),
-            (r'(extends)(\s+)([a-zA-Z_]\w*)',
+            (rf'(extends)(\s+)({namepat})',
              bygroups(Keyword.Declaration, Text, Name.Class)),
-            (r'(endclass\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+            (rf'(endclass\b)(?:(\s*)(:)(\s*)({namepat}))?',
              bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Class)),
 
             (words(_systemverilog_builtins.DATA_TYPES, suffix=r'\b'), Keyword.Type),
@@ -242,8 +244,8 @@ class SystemVerilogLexer(RegexLexer):
             (words(_systemverilog_builtins.PREPROCS, suffix=r'\b'), Comment.Preproc),
             (words(_systemverilog_builtins.BUILTIN_FUNTIONS, suffix=r'\b'), Name.Builtin),
 
-            (r'[a-zA-Z_]\w*:(?!:)', Name.Label),
-            (r'\$?[a-zA-Z_]\w*', Name),
+            (rf'{namepat}:(?!:)', Name.Label),
+            (rf'\$?{namepat}', Name),
             (r'\\(\S+)', Name),
         ],
         'string': [
@@ -266,11 +268,11 @@ class SystemVerilogLexer(RegexLexer):
         ],
         'function': [
             (r'\s+', Text),
-            (r'(static\b|automatic\b)', Keyword),
+            (rf'({lifetime})', Keyword),
             (words(_systemverilog_builtins.DATA_TYPES, suffix=r'\b'), Keyword.Type),
             (r'[\[\]:]', Punctuation),
             (r'[0-9]+', Number.Integer),
-            (r'([a-zA-Z_]\w*)', Name.Function),
+            (rf'({namepat})', Name.Function),
             (r'\(', Punctuation, '#pop')
         ],
     }
