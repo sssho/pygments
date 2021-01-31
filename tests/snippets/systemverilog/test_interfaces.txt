@@ -1,0 +1,29 @@
+# Interfaces
+
+---input---
+interface Foo;
+
+endinterface
+
+endinterface : Foo
+
+---tokens---
+'interface'   Keyword.Declaration
+' '           Text
+'Foo'         Name.Class
+';'           Punctuation
+'\n'          Text
+
+'\n'          Text
+
+'endinterface' Keyword.Declaration
+'\n'          Text
+
+'\n'          Text
+
+'endinterface' Keyword.Declaration
+' '           Text
+':'           Punctuation
+' '           Text
+'Foo'         Name.Class
+'\n'          Text

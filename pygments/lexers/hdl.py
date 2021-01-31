@@ -171,7 +171,7 @@ class SystemVerilogLexer(RegexLexer):
         'coverpoint', 'cross', 'deassign', 'default', 'defparam', 'design',
         'disable', 'do', 'edge', 'else', 'end', 'endcase',
         'endchecker', 'endclocking', 'endconfig',
-        'endgenerate', 'endgroup', 'endinterface',
+        'endgenerate', 'endgroup',
         'endprimitive', 'endprogram', 'endproperty', 'endsequence',
         'endspecify', 'endtable', 'enum', 'eventually',
         'expect', 'export', 'extern', 'final', 'first_match',
@@ -179,7 +179,7 @@ class SystemVerilogLexer(RegexLexer):
         'generate', 'genvar', 'global', 'highz0', 'highz1', 'if', 'iff',
         'ifnone', 'ignore_bins', 'illegal_bins', 'implies', 'implements', 'import',
         'incdir', 'include', 'initial', 'inout', 'input',
-        'instance', 'interconnect', 'interface', 'intersect', 'join',
+        'instance', 'interconnect', 'intersect', 'join',
         'join_any', 'join_none', 'large', 'let', 'liblist', 'library',
         'local', 'localparam', 'macromodule', 'matches',
         'medium', 'modport', 'nand', 'negedge', 'nettype', 'new', 'nexttime',
@@ -350,6 +350,12 @@ class SystemVerilogLexer(RegexLexer):
             (r'(endpackage\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
              bygroups(Keyword.Namespace, Text, Punctuation, Text, Name.Namespace)),
 
+            # interface declaration
+            (r'^(\s*)(interface)(\s+)(?!class )([a-zA-Z_]\w*)',
+             bygroups(Text, Keyword.Declaration, Text, Name.Class)),
+            (r'(endinterface\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
+             bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Class)),
+
             # module declaration
             (r'^(\s*)(module)(\s+)([a-zA-Z_]\w*)',
              bygroups(Text, Keyword.Declaration, Text, Name.Class)),
@@ -363,8 +369,9 @@ class SystemVerilogLexer(RegexLexer):
             (r'(endtask\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
              bygroups(Keyword.Declaration, Text, Punctuation, Text, Name.Function)),
 
-            (r'(class)(\s+)([a-zA-Z_]\w*)',
-             bygroups(Keyword.Declaration, Text, Name.Class)),
+            # class declaration
+            (r'(interface)?(\s*)(class)(\s+)([a-zA-Z_]\w*)',
+             bygroups(Keyword, Text, Keyword.Declaration, Text, Name.Class)),
             (r'(extends)(\s+)([a-zA-Z_]\w*)',
              bygroups(Keyword.Declaration, Text, Name.Class)),
             (r'(endclass\b)(?:(\s*)(:)(\s*)([a-zA-Z_]\w*))?',
